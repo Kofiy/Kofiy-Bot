@@ -1,0 +1,5 @@
+For runing bot you must install python3, pip and discord.py
+For instal discord.py write:
+    pip install discord.py
+And, this bot is in develop and he can doesn't work.
+I am in discord: Kofiy#7248
