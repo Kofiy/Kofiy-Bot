@@ -1,17 +1,18 @@
-#https://discordapp.com/oauth2/authorize?client_id=457633173669412875&scope=bot&permissions=2146958847
 import discord
 from discord.ext import commands
+from discord.ext.commands import Bot
 import asyncio
 import json
-from discord.ext.commands import Game
 import os.path
 import random
 
 
 
+BOT_PREFIX = "k!"
+clientBot = Bot(command_prefix=BOT_PREFIX)
 
 client = discord.Client()
-BOT_TOKEN = "yyxxxSECRET--TOKENxxxxyy"
+BOT_TOKEN = "xxxxSECRET-TOKENxxxx"
 
  #This is for me
 @client.event
@@ -23,9 +24,10 @@ async def on_ready():
 Hello! I'm ready 
     """)
 #commands
-@client.command(pass_context=True)
+@clientBot.command(pass_context=True)
 async def say(ctx, * , message):
     await client.send_message(ctx.message.channel, message)
+    
 
 @client.event
 async def on_message(message):
@@ -38,15 +40,18 @@ async def on_message(message):
         msg = '**{0.author.mention} Pong!**'.format(message)
         await client.send_message(message.channel, msg)
         
-    if message.content.startswith('k!embed'):
+    if message.content == 'k!embed':
         embed = discord.Embed(title="Title", description="This is a __test__ `embed`", color=0x00ff00)
         await client.send_message(message.channel, embed=embed)
         
         
-    #if message.content.lower().startswith('k!game'):
-        #member = message.author
-        #game = discord.Game
-            #await client.send_message(message.channel, "You playing {}" .format(member.game))
+    if message.content == 'k!game':
+        member = message.author
+        game = discord.Game
+        if member.game == None:
+            await client.send_message(message.channel, "You aren't playing")
+        else:
+            await client.send_message(message.channel, "You are playing {}" .format(member.game))
 
     if message.content.lower().startswith('k!love'):
         await client.send_message(message.channel, ''' 
@@ -68,7 +73,7 @@ async def on_message(message):
     if message.content.lower().startswith('k!transparent'):
         await client.send_message(message.channel, "https://cdn.discordapp.com/attachments/436883644473409538/466926711448272899/trump.png",)
 
-    if message.content.lower().startswith('k!game_over'):
+    if message.content == 'k!game_over':
         botmag = await client.send_message(message.channel, "https://cdn.discordapp.com/attachments/465256769690796033/465941825597997066/triggered.gif")
     
         await client.add_reaction(botmag, '🆗')
@@ -105,7 +110,7 @@ You have {} XP!```
         em = discord.Embed(title=hex(color), color=color)
         await client.send_message(message.channel, embed=em)
         
-    if message.content.startswith('k!help'):
+    if message.content == "k!help":
         embed = discord.Embed(title="My prefix: `k!`", description="**Commands:**", color=0xFF8C00)
         embed.add_field(name="hello", value="I greting you!", inline=False)
         embed.add_field(name="ping", value="I ping you!", inline=False)
