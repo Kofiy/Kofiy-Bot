@@ -9,10 +9,10 @@ import random
 
 
 
-BOT_PREFIX = "k!"
-clientBot = Bot(command_prefix=BOT_PREFIX)
+BOT_PREFIX = "!"
+client = Bot(command_prefix=BOT_PREFIX)
 
-client = discord.Client()
+#client = discord.Client()
 BOT_TOKEN = "YYxxxxSECRET--TOKENxxxxYY"
 
  #This is for me
@@ -25,7 +25,7 @@ async def on_ready():
 Hello! I'm ready 
     """)
 #commands
-@clientBot.command(pass_context=True)
+@client.command(pass_context=True)
 async def say(ctx, * , message):
     await client.say( message)
     
@@ -176,4 +176,4 @@ def get_xp(user_id: int):
         return 1
 
 client.run(BOT_TOKEN)
-clientBot.run(BOT_TOKEN)
+
