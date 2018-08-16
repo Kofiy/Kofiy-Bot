@@ -1,19 +1,18 @@
-#https://discordapp.com/oauth2/authorize?client_id=457633173669412875&scope=bot&permissions=2146958847
 import discord
 from discord.ext import commands
 from discord.ext.commands import Bot
+from discord import Game
 import asyncio
 import json
 import os.path
 import random
+import requests
 
 
-
-BOT_PREFIX = "!"
+BOT_PREFIX = "k!"
 client = Bot(command_prefix=BOT_PREFIX)
 
-#client = discord.Client()
-BOT_TOKEN = "YYxxxxSECRET--TOKENxxxxYY"
+BOT_TOKEN = "THIS_IS_MY_BOT_TOKEN"
 
  #This is for me
 @client.event
@@ -27,7 +26,16 @@ Hello! I'm ready
 #commands
 @client.command(pass_context=True)
 async def say(ctx, * , message):
-    await client.say( message)
+    await client.say(message)
+
+@client.command()
+async def bitcoin():
+    url = 'https://api.coindesk.com/v1/bpi/currentprice/BTC.json'
+    async with aiohttp.ClientSession() as session:  # Async HTTP request
+        raw_response = await session.get(url)
+        response = await raw_response.text()
+        response = json.loads(response)
+        await client.say("Bitcoin price is: $" + response['bpi']['USD']['rate'])
     
 
 @client.event
@@ -72,10 +80,14 @@ async def on_message(message):
         await client.send_message(message.channel, "I love you!")
 
     if message.content.lower().startswith('k!transparent'):
-        await client.send_message(message.channel, "https://cdn.discordapp.com/attachments/436883644473409538/466926711448272899/trump.png",)
+        photo = discord.Embed(color=0xFAFAFA)
+        photo.set_image(url="https://cdn.discordapp.com/attachments/436883644473409538/466926711448272899/trump.png")
+        await client.send_message(message.channel, embed=photo)
 
     if message.content == 'k!game_over':
-        botmag = await client.send_message(message.channel, "https://cdn.discordapp.com/attachments/465256769690796033/465941825597997066/triggered.gif")
+        over = discord.Embed(color=0xFAFAFA)
+        over.set_image(url="https://cdn.discordapp.com/attachments/465256769690796033/465941825597997066/triggered.gif")
+        botmag = await client.send_message(message.channel, embed=over)
     
         await client.add_reaction(botmag, '🆗')
 
@@ -87,18 +99,24 @@ async def on_message(message):
        #await client.send_message(message.channel,'{}' .format(SInvite))
 
     if message.content.lower().startswith('k!invite'):
-        await client.send_message(message.channel, "`https://discordapp.com/oauth2/authorize?client_id=457633173669412875&scope=bot&permissions=2146958847`")
+        invite = discord.Embed(title="https://discordapp.com/oauth2/authorize?client_id=457633173669412875&scope=bot&permissions=2146958847", color=random.randint(0, 0xFFFFFF))
+        invite.set_thumbnail(url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXW5NdMhsu1G6xmAMbnyP7jcEDery1bi7Yk84CHBj9ilcXlTsQrw")
+        await client.send_message(message.channel, embed=invite)
 
     if message.content.lower().startswith('k!party'):
-        await client.send_message(message.channel, "https://giphy.com/gifs/carnaval-carnival-dance-10hO3rDNqqg2Xe")
+        party = discord.Embed(color=0x12AD4F)
+        party.set_image(url="https://giphy.com/gifs/carnaval-carnival-dance-10hO3rDNqqg2Xe")
+        await client.send_message(message.channel, embed=party)
         
     if message.content.lower().startswith('k!messages'):
         counter = 0
-        tmp = await client.send_message(message.channel, "Calculating messages...")
+        wait = discord.Embed(title="Calculating messages...")
+        tmp = await client.send_message(message.channel, embed=wait)
         async for log in client.logs_from(message.channel, limit=100):
             if log.author == message.author:
                 counter += 1
-        await client.edit_message(tmp, 'You have {} messages.'.format(counter))
+        counmes = discord.Embed(title="You have {} messages.".format(counter), color=random.randint(0, 0xFFFFFF))
+        await client.edit_message(tmp, embed=counmes)
 
 
     if message.content.lower().startswith('k!xp'):
@@ -113,6 +131,7 @@ You have {} XP!```
         
     if message.content == "k!help":
         embed = discord.Embed(title="My prefix: `k!`", description="**Commands:**", color=0xFF8C00)
+        embed.set_thumbnail(url="https://cdn.discordapp.com/avatars/442029742523416582/5dc70bc8a6d30c38a74c423dc3e8182e.png?size=1024")
         embed.add_field(name="hello", value="I greting you!", inline=False)
         embed.add_field(name="ping", value="I ping you!", inline=False)
         embed.add_field(name="lol", value="LOL!", inline=False)
@@ -126,6 +145,7 @@ You have {} XP!```
         embed.add_field(name="embed", value="I write a test of embed!", inline=False)
         embed.add_field(name="love", value="I love you!", inline=False)
         embed.add_field(name="color", value="I send random color!", inline=False)
+        embed.add_field(name="game", value="I write what game you are playing", inline=False)
         await client.send_message(message.channel, embed=embed)
         
 
