@@ -21,7 +21,7 @@ from discord.ext.commands import Bot
 
 BOT_PREFIX = "k!"
 client = Bot(command_prefix=BOT_PREFIX)
-BOT_TOKEN = "NDU3NjMzMTczNjY5NDEyODc1.DhlD9Q.0xevVlQesIsD4o-P0FoqJDv7SWc"
+BOT_TOKEN = "TOKEN"
 
  #This is for me
 @client.event
