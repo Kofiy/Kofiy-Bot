@@ -11,6 +11,6 @@ This is my discord bot on discord.py. ON DEVELOP!!!
 3. Run bot.py (in `bot` directory) using `python <bot.py file path>`
 
 # Contacts:
-*Discord: Kofiy#7248
-*Facebook: https://www.facebook.com/bogdan.fediushin.3
-*VK (для русских): https://vk.com/kofiy9990
+* Discord: Kofiy#7248
+* Facebook: https://www.facebook.com/bogdan.fediushin.3
+* VK (для русских): https://vk.com/kofiy9990
