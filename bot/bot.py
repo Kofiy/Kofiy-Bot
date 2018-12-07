@@ -20,14 +20,9 @@ try:
 except ImportError:
     from io import StringIO
 
-bot_suports = ['394123740192964649', '442029742523416582']
-blacklist = ['201420686428864513', '479504351434506240', '475356879342796841']
-
-mes123 = None
-
 BOT_PREFIX = "k!"
 client = commands.Bot(command_prefix='!')
-BOT_TOKEN = "NDU3NjMzMTczNjY5NDEyODc1.DmBCbw.eGDwroooiCddMGKTPF0sI2hA67A"
+BOT_TOKEN = "<TOKEN HERE>"
 
 
 
@@ -40,63 +35,10 @@ async def on_ready():
 Hello! I'm ready
     """)
 
-@client.event
-async def on_member_join(newmember):
-    server = newmember.server
-    if newmember.id in blacklist:
-        await client.ban(newmember)
-        em = discord.Embed(title="""
-Member: [{} | {}]
-Server: [{} | {}]
-        """ .format(newmember.name, newmember.id, newmember.server.name, newmember.server.id), color=random.randint(0, 0xFFFFFF))
-        await client.send_message(client.get_channel('493333701925797888'), embed=em)
-    else:
-        await client.send_message(newmember, "Hello, {}" .format(newmember))
-
-@client.event
-async def on_reaction_add(reac, mem):
-    if reac.emoji == '🚪':
-        if reac.message == client.get_message(reac.message.channel, '493450348544000000'):
-            role = discord.utils.get(reac.message.server.roles, name="Подписчик")
-            await client.add_roles(mem, role)
 
 @client.event
 async def on_message(message):
-
-    if message.author.id in blacklist:
-        await client.ban(message.author)
-        em123 = discord.Embed(title="""
-Member: [{} | {}]
-Server: [{} | {}]
-        """ .format(message.author.name, message.author.id, message.server.name, message.server.id), color=random.randint(0, 0xFFFFFF))
-        await client.send_message(client.get_channel('493333701925797888'), embed=em123)
-
-
-    if message.content == "k!random":
-        randomphoto = ["https://ichef.bbci.co.uk/news/660/cpsprodpb/37B5/production/_89716241_thinkstockphotos-523060154.jpg", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRen28Lc3olisOoTTV0aVTUb3n398JPn8SbiTmb1axKYIDA5IAO", "https://clashroyale.news/img/cards/g/20.png"]
-        randomgif = ["https://i.redd.it/vvjlibynu2801.gif", "http://p.fod4.com/p/media/f5c54f367f/JXnsYGJDS1OVUSmccAjI_Human%20Eyed%20Dog.gif", "https://i.kym-cdn.com/photos/images/newsfeed/000/680/925/4a9.gif"]
-        randomvideo = ["https://www.youtube.com/watch?v=gbCgHS3sP74", "https://www.youtube.com/watch?v=wZZ7oFKsKzY", "https://www.youtube.com/watch?v=6VzrhlxGWbs"]
-        randommeme = ["https://i.pinimg.com/236x/d8/aa/46/d8aa46f8a33fc67bbbabe23dfbb81bc7--random-meme-a-potato.jpg", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5ZPTmOCN6BsJ_dMYVYfxwhoSXrD43xvB0-SYfdzgp-nFIr6QGPQ", "https://techcrunch.com/wp-content/uploads/2014/02/troll-2.png?w=730&crop=1"]
-        randomnumber = random.randint(0, 99999999999999999999999)
-        randomtype = random.randint(0, 4)
-        if randomtype == 0:
-            randomem = discord.Embed(title="Random image:", color=random.randint(0, 0xFFFFFF))
-            randomem.set_image(url=random.choice(randomphoto))
-        if randomtype == 1:
-            randomem = discord.Embed(title="Random GIF:", color=random.randint(0, 0xFFFFFF))
-            randomem.set_image(url=random.choice(randomgif))
-        if randomtype == 2:
-            c = random.randint(0, 0xFFFFFF)
-            _hex = str(c).split('0x')
-            _HEX = _hex[1]
-            randomem = discord.Embed(title="Random color: #{}" .format(_HEX), description=randomnumber, color=c)
-        if randomtype == 3:
-            randomem == discord.Embed(title="Random meme:", color=random.randint(0, 0xFFFFFF))
-            randomem.set_image(url=random.choice(randommeme))
-        if randomtype == 4:
-            randomem = discord.Embed(title="Random number:", description=randomnumber, color=random.randint(0, 0xFFFFFF))
-        await client.send_message(message.channel, embed=randomem)
-
+  
     if message.content.startswith('k#invert'):
         string = message.content
 
@@ -121,17 +63,7 @@ Server: [{} | {}]
         if language == 2:
             msg = 'Hello {0.author.mention}!'.format(message)
         await client.send_message(message.channel, msg)
-
-    if message.content == "k.delete-message":
-        if message.author.server_permissions.manage_messages:
-            await client.send_message(message.channel, "Write the amount, please")
-            amount = await client.wait_for_message(author=message.author, channel=message.channel)
-            delete_number = amount.clean_content.lower()
-            await client.delete_message(delete_number)
-            await client.send_message(message.channel, "I delete the {} message!" .format(delete_number))
-        else:
-            await client.send_message(message.channel, "You don't have a permision! | Permision ERROR!")
-
+        
     if message.content.startswith('k!ping'):
         msg = '**{0.author.mention} Pong!**'.format(message)
         await client.send_message(message.channel, msg)
