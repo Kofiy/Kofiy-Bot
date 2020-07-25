@@ -1,7 +1,8 @@
 Kofiy-Bot
 =======
 
-This is my discord bot on discord.py. ON DEVELOP!!!
+Bot doesn't work because API was updated.
+Bot was writen on discord.py v0.16.12.
 
 # Runing bot
 1. To run bot, you need have instaled python and some modules (discord.py, PIL, urllib, bs4, inspect, simplejson, requests, BytesIO and StringIO). To install discord.py type on command line: `pip install discord.py`
